@@ -9,7 +9,8 @@ function ComputerPlay(){
                     return "scissors"
 }
 function PlayRound(Player, AI){
-    let PlayerIns=PLayer.toLowerCase();
+    let PlayerIns=Player.toLowerCase();
+    console.log(PlayerIns + " " + AI);
     switch(PlayerIns){
         case "rock":{
             if(AI=="paper")
@@ -40,3 +41,41 @@ function PlayRound(Player, AI){
         }
     }
 }
+function Verifica(P){
+    let PLower=P.toLowerCase();
+    if(PLower=="rock" || PLower=="paper" || PLower=="scissors")
+        return true;
+    else{
+        alert("Mal ingreso");
+        return false;
+    }
+}
+function game(){
+    let I,PCount=0,AICount=0,P;
+    let Result;
+    for(I=0;I<5;I++){
+        do
+            P=window.prompt("Ingrese rock, paper, o scissors");
+        while(!Verifica(P))
+        Result=PlayRound(P,ComputerPlay());
+        console.log(Result);
+        if(Result.includes("Ganaste"))
+            PCount++;
+        else{
+            if(Result.includes("Perdiste"))
+                AICount++;
+            else
+                I--;
+        }
+    }
+    if(PCount>AICount)
+        console.log("Ganaste el juego");
+    else{
+        if(PCount<AICount)
+            console.log("Perdiste el juego");
+        else   
+            console.log("Empate");
+    }
+}
+
+game();
