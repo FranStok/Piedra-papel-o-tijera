@@ -46,15 +46,7 @@ function PlayRound(Player, AI){
         }
     }
 }
-function Verifica(P){
-    let PLower=P.toLowerCase();
-    if(PLower=="rock" || PLower=="paper" || PLower=="scissors")
-        return true;
-    else{
-        alert("Mal ingreso");
-        return false;
-    }
-}/*
+/*
 function game(){
     let I,PCount=0,AICount=0,P;
     let Result;
@@ -82,9 +74,11 @@ function game(){
             console.log("Empate");
     }
 }*/
+let PCount=0,AICount=0
 const buttons=document.querySelectorAll("button");
 buttons.forEach(element => {
     element.addEventListener("click",function(e){
+        let Juego;
         let Eleccion=document.querySelector(".Elecciones");
         if(Eleccion!=null){
             Eleccion.remove();
@@ -95,7 +89,16 @@ buttons.forEach(element => {
         }
         Result=document.createElement("p");
         const Textos=document.querySelector(".Textos");
-        Result.textContent=PlayRound(element.className,ComputerPlay())
+        Juego=PlayRound(element.className,ComputerPlay())
+        Result.textContent=Juego
+        if(Juego.includes("Ganaste"))
+            PCount++;
+        else
+            if(Juego.includes("Perdiste"))
+                AICount++;
+        if(PCount==3 || AICount==3){
+            TerminarJuego();
+        }
         Result.classList.add("Results");
         Textos.appendChild(Result);
     });
